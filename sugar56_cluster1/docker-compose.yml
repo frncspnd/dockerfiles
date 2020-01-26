@@ -21,16 +21,16 @@ services:
         container_name: "sugar56-mysql"
         image: frncspnd/sugarmysql56:latest
         ports:
-            - "3306:3306"
+            - "3356:3306"
         volumes:
-            - ../../src/data/mysql/57:/var/lib/mysql
+            - ../../src/data/mysql/56:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_USER=sugar
             - MYSQL_PASSWORD=sugar
     elasticsearch:
         container_name: "sugar56-elasticsearch"
-        image: frncspnd/sugarelastic56
+        image: frncspnd/sugarelastic175
         volumes:
             - ../../src/data/elasticsearch/175:/usr/share/elasticsearch/data:delegated
     redis:
