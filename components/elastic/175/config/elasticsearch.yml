@@ -1,0 +1,7 @@
+cluster.name: sugarelastic175
+node.name: sugar175
+action.disable_close_all_indices: true
+action.disable_delete_all_indices: true
+action.disable_shutdown: true
+script.disable_dynamic: true
+bootstrap.mlockall: true
