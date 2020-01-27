@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+    web1:
+        container_name: "sugar71-web1"
+        image: frncspnd/sugarweb71:latest
+        restart: always
+        ports:
+            - "8080:8080"
+        volumes:
+            - ../../src/htdocs:/var/www/html:delegated
+        depends_on:
+            - mysql
+            - elasticsearch
+            - redis
+        links:
+            - mysql
+            - elasticsearch
+            - redis
+    mysql:
+        container_name: "sugar71-mysql"
+        image: frncspnd/sugarmysql57:latest
+        ports:
+            - "3371:3306"
+        volumes:
+            - ../../src/data/mysql/57:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=sugar
+            - MYSQL_PASSWORD=sugar
+    elasticsearch:
+        container_name: "sugar71-elasticsearch"
+        image: frncspnd/sugarelastic175:latest
+        volumes:
+            - ../../src/data/elasticsearch/175:/usr/share/elasticsearch/data:delegated
+    redis:
+        container_name: "sugar71-redis"
+        image: redis:latest
+        volumes:
+            - ../../src/data/redis:/data
