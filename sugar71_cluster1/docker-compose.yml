@@ -33,6 +33,10 @@ services:
         image: frncspnd/sugarelastic175:latest
         volumes:
             - ../../src/data/elasticsearch/175:/usr/share/elasticsearch/data:delegated
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
     redis:
         container_name: "sugar71-redis"
         image: redis:latest

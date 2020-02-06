@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+    app1:
+        container_name: "nodejs1"
+        image: node:12.14-slim
+        restart: always
+        ports:
+            - "3000:3000"
+        volumes:
+            - ../../src/apps/nodejs-todo/todo-server:/home/node/app:delegated
+        working_dir: /home/node/app
+        command: bash -c "npm install -g nodemon && npm run dev"
+        depends_on:
+            - mongo
+        links:
+            - mongo
+    mongo:
+        container_name: "nodejs1-mongodb"
+        image: mongo:4.2
+        restart: always
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+            MONGO_USERDB_ADMIN_USERNAME: mongoadmin
+            MONGO_USERDB_ADMIN_PASSWORD: mongoadmin
+            MONGO_USERDB_ADMIN_DATABASE: todoapp
+    mongo-express:
+        container_name: "nodejs1-mongodb-exp"
+        image: mongo-express
+        restart: always
+        ports:
+            - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: root
